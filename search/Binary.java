@@ -13,11 +13,10 @@ public class Binary
    * Returns the index of the target value, or -1 if not found
    */
   public static int search(int[] arr, int target) {
-    // Your algorithm goes here!
-    // Note... I know that the standard Java Arrays class has a method called
-    // binarySearch.  If you use it for testing, but you need to implement the algorithm
-    // to get the point!
-    
+    for (int i = 0; i < arr.length; i++) {
+        
+    }
+    return -1;
   }
   
   public static void main(String[] args) {

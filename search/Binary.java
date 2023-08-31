@@ -13,8 +13,18 @@ public class Binary
    * Returns the index of the target value, or -1 if not found
    */
   public static int search(int[] arr, int target) {
+    int low = 0;
+    int high = arr.length-1;
+    int mid = (high + low)/2;
     for (int i = 0; i < arr.length; i++) {
-        
+        if (arr[i] == mid) {
+            target = mid;
+        } else if (arr[i] > mid) {
+            target = arr[high];
+        } else if (arr[i] < mid) {
+            target = arr[low];
+        }
+    
     }
     return -1;
   }
@@ -26,7 +36,13 @@ public class Binary
       
     // Remember that a binary search requires a sorted array!
     // You can use one of your sorting methods here.
-    
+    for (int i = 0; i < arr.length; i++) {
+        int previous = i - 1;
+        while (previous >= 0 && arr[previous] > arr[i]) {
+            arr[previous] = arr[i];
+            previous = previous - 1;
+        }
+    }
 
     ////////////////////////////////////////////////////////////
     // Do not change anything below this line!!

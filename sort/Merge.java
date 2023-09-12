@@ -18,74 +18,43 @@ public class Merge
         if (arr.length <= 1) {
             return arr;
         }
-    }
-
-    void merge(int[] arr, int left, int mid, int right) {
-        int n1 = mid - left + 1;
-        int n2 = right - mid;
-
-        // Create temp arrays
-        int L[] = new int[n1];
-        int R[] = new int[n2];
-
-        // Copy data to temp arrays
-        for (int i = 0; i < n1; ++i)
-            L[i] = arr[left + i];
-        for (int j = 0; j < n2; ++j)
-            R[j] = arr[mid + 1 + j];
-
-        // Merge the temp arrays
-
-        // Initial indices of first and second subarrays
-        int i = 0, j = 0;
-
-        // Initial index of merged subarray array
-        int k = left;
-        while (i < n1 && j < n2) {
-            if (L[i] <= R[j]) {
-                arr[k] = L[i];
-                i++;
+        
+        int mid = arr.length/2;
+        int[] leftLength = new int [mid];
+        int[] rightLength = new int [arr.length - mid];
+        System.arraycopy(arr, 0, leftLength, 0, mid);
+        System.arraycopy(arr, mid, rightLength, 0, arr.length - mid);
+        
+        sort(leftLength);
+        sort(rightLength);
+        
+        merge(arr, leftLength, rightLength);
+        
+        return arr;
+        }
+        
+    public static void merge(int[] arr, int[] leftLength, int[] rightLength) {
+        int i = 0;
+        int j = 0;
+        int k = 0;
+        
+        while (i < leftLength.length && j < rightLength.length) {
+            if (leftLength[i] <= rightLength[j]) {
+                arr[k++] = leftLength[i++];
+            } else {
+                arr[k++] = rightLength[j++];
             }
-            else {
-                arr[k] = R[j];
-                j++;
-            }
-            k++;
         }
-
-        // Copy remaining elements of L[] if any
-        while (i < n1) {
-            arr[k] = L[i];
-            i++;
-            k++;
+        
+        while (i < leftLength.length) {
+            arr[k++] = leftLength[i++];
         }
-
-        // Copy remaining elements of R[] if any
-        while (j < n2) {
-            arr[k] = R[j];
-            j++;
-            k++;
+        
+        while (j < rightLength.length) {
+            arr[k++] = rightLength[j++];
         }
     }
-
-    // Main function that sorts arr[l..r] using
-    // merge()
-    void sort(int arr[], int l, int r)
-    {
-        if (l < r) {
-
-            // Find the middle point
-            int m = l + (r - l) / 2;
-
-            // Sort first and second halves
-            sort(arr, l, m);
-            sort(arr, m + 1, r);
-
-            // Merge the sorted halves
-            merge(arr, l, m, r);
-        }
-
-    }
+    
 
     public static void main(String[] args) {
         int[] arr = {53,85,93,25,39,27,42,5,24,45,33,51,5,80,4,7,91,
